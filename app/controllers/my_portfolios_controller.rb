@@ -29,4 +29,7 @@ class MyPortfoliosController < ApplicationController
       end
     end
   end
+  def show
+    @my_portfolio = MyPortfolio.find(params[:id])
+  end
 end
