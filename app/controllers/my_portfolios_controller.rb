@@ -2,11 +2,14 @@ class MyPortfoliosController < ApplicationController
   def index
     @my_portfolio = MyPortfolio.all
   end
+
   def new
     @my_portfolio = MyPortfolio.new
+    3.times {@my_portfolio.technologies.build}
   end
   def create
-    @my_portfolio = MyPortfolio.new(params.require(:my_portfolio).permit(:title, :subtitle, :body))
+    @my_portfolio = MyPortfolio.new(params.require(:my_portfolio).permit(:title, :subtitle, :body,
+      technologies_attributes: [:name]))
 
     respond_to do |format|
       if @my_portfolio.save
