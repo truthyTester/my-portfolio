@@ -7,9 +7,9 @@ class MyPortfoliosController < ApplicationController
     @my_portfolio = MyPortfolio.new
     3.times {@my_portfolio.technologies.build}
   end
+
   def create
-    @my_portfolio = MyPortfolio.new(params.require(:my_portfolio).permit(:title, :subtitle, :body,
-      technologies_attributes: [:name]))
+    @my_portfolio = MyPortfolio.new(portfolio_params)
 
     respond_to do |format|
       if @my_portfolio.save
@@ -19,22 +19,26 @@ class MyPortfoliosController < ApplicationController
       end
     end
   end
+
   def edit
     @my_portfolio = MyPortfolio.find(params[:id])
   end
+
   def update
     @my_portfolio = MyPortfolio.find(params[:id])
     respond_to do |format|
-      if @my_portfolio.update(params.require(:my_portfolio).permit(:title, :subtitle, :body))
+      if @my_portfolio.update(portfolio_params)
         format.html { redirect_to (my_portfolios_path), notice: 'The record was successfully updated.' }
       else
         format.html { render :edit }
       end
     end
   end
+
   def show
     @my_portfolio = MyPortfolio.find(params[:id])
   end
+
   def destroy
     @my_portfolio = MyPortfolio.find(params[:id])
 
@@ -43,5 +47,15 @@ class MyPortfoliosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to my_portfolios_url, notice: 'Portfolio was successfully destroyed.' }
     end
+  end
+
+  private
+
+  def portfolio_params
+    params.require(:my_portfolio).permit(:title,
+                                         :subtitle,
+                                         :body,
+                                         technologies_attributes: [:name]
+                                        )
   end
 end
