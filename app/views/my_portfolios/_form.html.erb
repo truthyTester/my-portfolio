@@ -1,0 +1,28 @@
+<%= form_with(model: @my_portfolio, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :subtitle %>
+    <%= form.text_field :subtitle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+  </div>
+
+  <ul>
+    <%= form.fields_for :technologies do |technolgy_form | %>
+      <li>
+        <%= technolgy_form.label :name %>
+        <%= technolgy_form.text_field :name %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
