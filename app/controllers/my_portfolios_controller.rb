@@ -4,7 +4,7 @@ class MyPortfoliosController < ApplicationController
   access all: [:show, :index], user: {except: [:destroy, :new, :create, :edit]}, site_admin: :all
 
   def index
-    @my_portfolio = MyPortfolio.all
+    @my_portfolio = MyPortfolio.by_position
   end
 
   def new
