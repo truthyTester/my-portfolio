@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
-  resources :my_portfolios, except: [:show]
+  resources :my_portfolios, except: [:show] do
+    put :sort, on: :collection
+  end
   get 'portfolio/:id', to:'my_portfolios#show', as: 'my_portfolio_show'
 
   get 'about-me', to:'pages#about'

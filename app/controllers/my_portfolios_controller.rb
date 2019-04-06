@@ -7,6 +7,14 @@ class MyPortfoliosController < ApplicationController
     @my_portfolio = MyPortfolio.by_position
   end
 
+  def sort
+      params[:order].each do |key, value|
+        MyPortfolio.find(value[:id]).update(position: value[:position])
+      end
+
+       render body: nil
+    end
+
   def new
     @my_portfolio = MyPortfolio.new
     3.times {@my_portfolio.technologies.build}
